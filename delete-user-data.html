@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex">
+        <title>Delete User Data</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            h1 {
+                color: #333;
+            }
+
+            label {
+                display: block;
+                margin-top: 10px;
+            }
+
+            input {
+                padding: 5px;
+                margin-bottom: 10px;
+                min-width: 200px;
+            }
+
+            button {
+                background-color: #007afe;
+                color: white;
+                padding: 10px;
+                border-radius: 5px;
+                border: none;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #3798ff;
+            }
+
+            footer {
+                text-align: center;
+                margin-top: 40px;
+                padding: 10px;
+                background-color: #f4f4f4;
+            }
+
+            #backdrop {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            #loader {
+                display: none;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #3498db;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                animation: spin 1s linear infinite;
+                margin-left: 5px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Delete User Data - Financial Tracker</h1>
+
+        <p>
+            Are you sure you want to delete your account? By doing so, you
+            acknowledge that this action is irreversible, and all your account
+            information, preferences, and transaction history will be
+            permanently removed from our servers.
+        </p>
+
+        <p>
+            Please enter your email and password below to confirm the deletion.
+        </p>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required /><br />
+        <label for="password">Password:</label>
+        <input type="password" id="password" required /><br />
+        <button id="deleteBtn">Confirm Deletion</button>
+
+        <div id="backdrop">
+            <div id="loader"></div>
+        </div>
+
+        <footer>Financial Tracker &copy; 2023</footer>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+            import {
+                getAuth,
+                deleteUser,
+                signInWithEmailAndPassword,
+            } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+            import {
+                getFirestore,
+                collection,
+                doc,
+                getDocs,
+                deleteDoc,
+                writeBatch,
+            } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyBifo8zpJpYSXmKa_o8LfbJ4o98ESpJhzo",
+                authDomain: "financialtrackerapp.firebaseapp.com",
+                projectId: "financialtrackerapp",
+                storageBucket: "financialtrackerapp.appspot.com",
+                messagingSenderId: "391234006851",
+                appId: "1:391234006851:web:910831e10ed8bac26009f6",
+                measurementId: "G-9J86CJ5T0R",
+            };
+
+            // Initialize Firebase
+            const firebaseApp = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(firebaseApp);
+            const authInstance = getAuth(firebaseApp);
+            const firestoreInstance = getFirestore(firebaseApp);
+
+            document
+                .getElementById("deleteBtn")
+                .addEventListener("click", deleteUserData);
+
+            function deleteUserData() {
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                document.getElementById("backdrop").style.display = "flex";
+                document.getElementById("loader").style.display = "block";
+
+                // Sign in the user with email and password
+                signInWithEmailAndPassword(authInstance, email, password)
+                    .then((userCredential) => {
+                        deleteFirestoreAccount();
+                    })
+                    .catch((error) => {
+                        console.error("Error signing in:", error);
+
+                        document.getElementById("backdrop").style.display =
+                            "none";
+                        document.getElementById("loader").style.display =
+                            "none";
+
+                        alert("Invalid credentials. Please try again.");
+                    });
+            }
+
+            async function deleteFirestoreAccount() {
+                try {
+                    const userUid = authInstance.currentUser?.uid;
+                    const userDocumentRef = doc(
+                        firestoreInstance,
+                        "users",
+                        userUid
+                    );
+
+                    const batch = writeBatch(firestoreInstance);
+
+                    // Delete transactions subcollection
+                    const transactionsSnapshot = await getDocs(
+                        collection(userDocumentRef, "transactions")
+                    );
+                    transactionsSnapshot.forEach((doc) =>
+                        batch.delete(doc.ref)
+                    );
+
+                    // Delete categories subcollection
+                    const categoriesSnapshot = await getDocs(
+                        collection(userDocumentRef, "categories")
+                    );
+                    categoriesSnapshot.forEach((doc) => batch.delete(doc.ref));
+
+                    // Delete meta subcollection
+                    const metaSnapshot = await getDocs(
+                        collection(userDocumentRef, "meta")
+                    );
+                    metaSnapshot.forEach((doc) => batch.delete(doc.ref));
+
+                    // Commit the batch
+                    await batch.commit();
+
+                    // Delete the user document
+                    await deleteDoc(userDocumentRef);
+
+                    // Delete the Firebase user
+                    await deleteUser(authInstance.currentUser);
+
+                    document.getElementById("email").value = "";
+                    document.getElementById("password").value = "";
+                    document.getElementById("backdrop").style.display = "none";
+                    document.getElementById("loader").style.display = "none";
+                    alert("Account successfully deleted");
+
+                    return true;
+                } catch (error) {
+                    console.error("Error deleting user data and user:", error);
+                    return false;
+                }
+            }
+        </script>
+    </body>
+</html>
