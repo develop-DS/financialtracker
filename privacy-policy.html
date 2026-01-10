@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Financial Tracker - Privacy Policy</title>
+        <title>Kasboek - Privacy Policy</title>
         <style>
             body {
                 background-color: #ffffff;
@@ -36,6 +36,10 @@
                 margin-bottom: 20px;
             }
 
+            ul {
+                margin-bottom: 20px;
+            }
+
             @media (max-width: 600px) {
                 body {
                     padding: 10px;
@@ -46,155 +50,124 @@
     <body>
         <div class="container">
             <h1>Privacy Policy</h1>
+            <p><strong>Last updated:</strong> 2026-01-10</p>
 
             <p>
-                Welcome to Financial Tracker ("we," "us," or "our"). This
-                Privacy Policy is designed to help you understand how we
-                collect, use, and safeguard your personal information. By using
-                our app, you agree to the terms outlined in this policy.
+                Kasboek ("we," "us," or "our") is a personal finance app designed
+                for manual tracking of income, expenses, and savings. This
+                Privacy Policy explains what we collect, how we use it, and the
+                choices you have.
             </p>
 
-            <h2>1. Introduction</h2>
-
+            <h2>1. Local-First Data</h2>
             <p>
-                This Privacy Policy governs the manner in which Financial
-                Tracker collects, uses, maintains, and discloses information
-                collected from users (each, a "User") of the Financial Tracker
-                mobile application ("App"). This privacy policy applies to the
-                App and all products and services offered by Financial Tracker.
+                By default, your data is stored locally on your device. If you
+                do not create an account, your data stays on your device. If you
+                uninstall the app, your local data is removed.
             </p>
 
             <h2>2. Information We Collect</h2>
 
-            <h3>a. Personal Information</h3>
-
+            <h3>a. Account Information (optional)</h3>
             <p>
-                When you choose to log in with Firebase email and password, we
-                collect the email address associated with your account. If you
-                opt to store data on Firebase Firestore, the following data may
-                be collected:
+                If you choose to create an account, we use Firebase
+                Authentication and collect:
             </p>
-
             <ul>
-                <li>Email and password for authentication.</li>
-                <li>
-                    User-generated financial transactions manually created by
-                    the user.
-                </li>
-                <li>
-                    User preferences, including but not limited to budget start
-                    day, budget limits, and transaction categories.
-                </li>
+                <li>Email address and authentication credentials.</li>
             </ul>
 
-            <h3>b. Non-Personal Information</h3>
-
+            <h3>b. Financial Data (optional cloud sync)</h3>
             <p>
-                We may collect non-personal information such as device
-                information, usage statistics, and crash reports to improve app
-                functionality.
+                If you enable cloud backup, we store your data in Firebase
+                Firestore, which may include:
+            </p>
+            <ul>
+                <li>Transactions you enter</li>
+                <li>Categories and budgeting details</li>
+                <li>App settings related to your financial data</li>
+            </ul>
+
+            <h3>c. Usage & Diagnostics</h3>
+            <p>
+                We use Firebase Analytics to understand how the app is used and
+                improve it. This may include device information, feature usage,
+                and interaction events.
+            </p>
+
+            <h3>d. Advertising Data</h3>
+            <p>
+                We use Google AdMob to display ads. AdMob may collect device
+                identifiers and other data for ad delivery and measurement, in
+                accordance with Google’s policies.
             </p>
 
             <h2>3. How We Use Your Information</h2>
+            <ul>
+                <li>To provide app features and calculations</li>
+                <li>To enable optional cloud backup and sync</li>
+                <li>To improve the app through analytics</li>
+                <li>To show ads and manage ad-free access</li>
+            </ul>
 
-            <h3>Personal Information:</h3>
-
+            <h2>4. Export & Import</h2>
             <p>
-                Personal information is used to identify you and provide
-                personalized services. User-generated financial transactions are
-                utilized to create dashboards, charts, and support budgeting on
-                the user's mobile device. This information is not shared with
-                third parties except as outlined in this policy.
+                You can export your data as a JSON backup, and export
+                transactions as a CSV file for spreadsheets. CSV exports are for
+                viewing only and cannot be imported back into the app.
             </p>
 
-            <h3>Non-Personal Information:</h3>
-
+            <h2>5. Data Deletion</h2>
             <p>
-                Non-personal information is used for analytics, app improvement,
-                and to enhance the user experience.
+                If you have an account, you can request account deletion from
+                within the app. This removes your cloud data. If you only use
+                local storage, uninstalling the app removes your local data.
             </p>
 
-            <h2>4. Firebase and Google Services</h2>
-
-            <h3>a. Firebase</h3>
-
+            <h2>6. Third-Party Services</h2>
             <p>
-                If you choose to log in with Firebase, your data will be stored
-                securely on Firebase servers. Firebase follows its own privacy
-                policy, which you can review
-                <a href="https://firebase.google.com/support/privacy">here</a>.
+                We use the following third-party services:
+            </p>
+            <ul>
+                <li>
+                    Firebase (Authentication, Firestore, Analytics):
+                    <a href="https://firebase.google.com/support/privacy"
+                        >https://firebase.google.com/support/privacy</a
+                    >
+                </li>
+                <li>
+                    Google AdMob:
+                    <a href="https://support.google.com/admob/answer/6128543"
+                        >https://support.google.com/admob/answer/6128543</a
+                    >
+                </li>
+                <li>
+                    Google Privacy Policy:
+                    <a href="https://policies.google.com/privacy"
+                        >https://policies.google.com/privacy</a
+                    >
+                </li>
+            </ul>
+
+            <h2>7. Security</h2>
+            <p>
+                We use industry-standard safeguards to protect your data.
+                However, no method of transmission or storage is 100% secure.
             </p>
 
-            <h3>b. Google Analytics</h3>
-
+            <h2>8. Changes to This Policy</h2>
             <p>
-                We use Google Analytics to collect information about how our app
-                is used. Google Analytics uses cookies and similar technologies
-                to analyze and report on user interactions. The information
-                generated is transmitted to Google servers and stored in
-                accordance with Google's privacy practices. For more
-                information, please review
-                <a href="https://policies.google.com/privacy"
-                    >Google's Privacy Policy</a
-                >.
+                We may update this Privacy Policy from time to time. Changes
+                will be posted on this page and may also be communicated within
+                the app.
             </p>
 
-            <h3>c. Google AdMob</h3>
-
+            <h2>9. Contact</h2>
             <p>
-                We use Google AdMob for displaying ads in our app. Google AdMob
-                collects and processes personal data in accordance with its
-                privacy policy. For more information, please review
-                <a href="https://support.google.com/admob/answer/6128543"
-                    >Google AdMob Privacy Policy</a
-                >.
-            </p>
-
-            <h2>5. Data Storage and Deletion</h2>
-
-            <p>
-                Data stored on Firebase Firestore can be deleted upon user
-                request. Locally stored data can be deleted by uninstalling the
-                app.
-            </p>
-
-            <h2>6. Security</h2>
-
-            <p>
-                We employ industry-standard security measures to protect your
-                data. However, no method of transmission over the internet is
-                100% secure.
-            </p>
-
-            <h2>7. Third-Party Links</h2>
-
-            <p>
-                Our app may contain links to third-party websites. We are not
-                responsible for the privacy practices or content of these sites.
-            </p>
-
-            <h2>8. Changes to This Privacy Policy</h2>
-
-            <p>
-                We reserve the right to update this Privacy Policy. Changes will
-                be posted on our website and within the app.
-            </p>
-
-            <h2>9. Contact Us</h2>
-
-            <p>
-                If you have any questions or concerns about this Privacy Policy,
-                please contact us at
+                If you have questions about this Privacy Policy, contact us at:
                 <a href="mailto:info.developds@gmail.com"
                     >info.developds@gmail.com</a
                 >.
-            </p>
-
-            <h2>10. Consent</h2>
-
-            <p>
-                By using our app, you consent to the terms outlined in this
-                Privacy Policy.
             </p>
         </div>
     </body>
