@@ -1,10 +1,9 @@
-# Financial Tracker App
-financialtracker
+# Kasboek: Manual Tracker
 
-## Pages:
+kasboek-manual-tracker
 
-Privacy: https://develop-ds.github.io/financialtracker/privacy-policy.html
+## Pages
 
-Terms: https://develop-ds.github.io/financialtracker/terms-and-conditions.html
-
-Support: https://develop-ds.github.io/financialtracker/support.html
+Privacy: https://develop-ds.github.io/financialtracker/privacy-policy.html  
+Terms: https://develop-ds.github.io/financialtracker/terms-and-conditions.html  
+Support: https://develop-ds.github.io/financialtracker/support.html  
